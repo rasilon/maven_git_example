@@ -29,7 +29,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
           </descriptorRefs>
           <archive>
             <manifest>
-              <mainClass>com.rasilon.ujetl.CopyingApp</mainClass>
+              <mainClass>com.rasilon.test.SCMTest</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -46,23 +46,29 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.22.0</version>
       </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>buildnumber-maven-plugin</artifactId>
-        <version>3.2.1</version>
-        <executions>
-          <execution>
-            <phase>validate</phase>
+
+
+
+    <plugin>
+    <groupId>io.github.git-commit-id</groupId>
+    <artifactId>git-commit-id-maven-plugin</artifactId>
+    <version>9.0.2</version>
+    <executions>
+        <execution>
+            <id>get-the-git-infos</id>
             <goals>
-              <goal>create</goal>
+                <goal>revision</goal>
             </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <doCheck>true</doCheck>
-          <doUpdate>true</doUpdate>
-        </configuration>
-      </plugin>
-    </plugins>
+            <phase>initialize</phase>
+        </execution>
+    </executions>
+    <configuration>
+        <generateGitPropertiesFile>true</generateGitPropertiesFile>
+        <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+        <commitIdGenerationMode>full</commitIdGenerationMode>
+    </configuration>
+</plugin>
+</plugins>
+
   </build>
 </project>
